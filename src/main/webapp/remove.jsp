@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Sign Up</title>
+        <title>Home</title>
         <link rel="stylesheet" href="extra/style.css">
         <link rel="stylesheet" href="extra/w3.css">
         <script src="extra/script.js"></script>
@@ -30,13 +30,15 @@
             <div class="w3-dark-grey">
                 <button class="w3-button w3-dark-grey w3-xlarge w3-hide-large" onclick="w3_open()">&#9776;</button>
                 <div class="w3-container">
-                    <h2>Register</h2>
+                    <h2>Remove</h2>
                 </div>
             </div>
 
 <!--------- Inhoud Pagina -------------------------------------------------------------------------------------------->
 
             <div class="w3-container w3-card-4 w3-light-grey w3-text-blue w3-margin">
+
+<!------------- Errors ----------------------------------------------------------------------------------------------->
 
                 <c:if test = "${not empty result}">
                     <div class="alert-danger">
@@ -48,30 +50,24 @@
                     </div>
                 </c:if>
 
-                <form method="POST" action="Controller?command=Register" novalidate="novalidate">
-                    <!-- novalidate in order to be able to run tests correctly -->
+<!------------- Remove ------------------------------------------------------------------------------------------------->
+
+                <form method="POST" action="Controller?command=Remove" novalidate="novalidate">
+
                     <p><label for="userid">User id</label>
-                        <input type="text" id="userid" name="userid" value="${idPre}" required > </p>
-                    <p><label for="firstName">First Name</label>
-                        <input type="text" id="firstName" name="firstName" value="${fnPre}" required > </p>
-                    <p><label for="lastName">Last Name</label>
-                        <input type="text" id="lastName" name="lastName" value="${lnPre}" required > </p>
-                    <p><label for="email">Email</label>
-                        <input type="email" id="email" name="email" value="${emPre}" required ></p>
-                    <p><label for="password">Password</label>
-                        <input type="password" id="password"  name="password" value="${pwPre}" required > </p>
+                        <input type="text" id="userid" name="userid" value="${loginId}" required > </p>
 
-                    <p><input type="submit" id="signUp" value="Sign Up"></p>
-
+                    <p><input type="submit" id="remove" value="Remove Person"></p>
                 </form>
 
-<!-------------------------------------------------------------------------------------------------------------------->
+            </form>
+<!------------- Footer ----------------------------------------------------------------------------------------------->
 
-                <footer>
-                    &copy; Webontwikkeling 3, UC Leuven-Limburg
-                </footer>
+            <footer>
+                &copy; Webontwikkeling 3, UC Leuven-Limburg
+            </footer>
 
-            </div>
         </div>
+    </div>
     </body>
 </html>
