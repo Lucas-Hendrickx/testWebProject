@@ -1,0 +1,14 @@
+# IntelliJ
+.idea/
+
+# local config
+*.iml
+*.iws
+
+
+# Maven
+log/
+target/
+
+# password
+/src/main/java/util/Secret.java
