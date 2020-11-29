@@ -37,17 +37,9 @@
                     </div>
                 </c:if>
 
-<!------------- Not Logged In As Admin ------------------------------------------------------------------------------->
-
-                <c:if test = "${role != 'Admin'}">
-
-                    <h2>You need to be Admin to see this page!</h2>
-
-                </c:if>
-
 <!------------- Logged In As Admin ----------------------------------------------------------------------------------->
 
-                <c:if test = "${role == 'Admin'}">
+                <c:if test = "${registered.role == 'ADMIN'}">
 
                     <c:if test = "${empty allContactsOfUser}">
 

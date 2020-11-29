@@ -1,6 +1,8 @@
 package ui.controller;
 
 import domain.model.Event;
+import domain.model.Role;
+import ui.authorization.Utility;
 import ui.controller.RequestHandler;
 
 import javax.servlet.ServletException;
@@ -16,6 +18,9 @@ public class Create_Event extends RequestHandler {
 
     @Override
     public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Role[] roles = {Role.ADMIN};
+        Utility.checkRole(request, roles);
+
         List<String> result = new ArrayList<>();
         Event event =  new Event();
 

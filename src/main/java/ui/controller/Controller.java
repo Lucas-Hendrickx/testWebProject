@@ -1,6 +1,7 @@
 package ui.controller;
 
 import domain.service.Service;
+import ui.authorization.NotAuthorizedException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -38,14 +39,21 @@ public class Controller extends HttpServlet {
             try {
                 RequestHandler handler = handlerFactory.getHandler(command, service);
                 handler.handleRequest(request, response);
-            } catch (Exception exc) {
+            }
+            catch (NotAuthorizedException e) {
+                List<String> result = new ArrayList<String>();
+                result.add("You have insufficient rights to have a look at the page");
+                request.setAttribute("result", result);
+                request.getRequestDispatcher("index.jsp").forward(request, response);
+            }
+            catch (Exception exc) {
                 List<String> result = new ArrayList<String>();
                 result.add(exc.getMessage());
                 request.setAttribute("result", result);
                 request.getRequestDispatcher("extra/error.jsp").forward(request, response);
             }
         } else {
-            request.getRequestDispatcher("Controller?command=Open_Index").forward(request, response);
+            request.getRequestDispatcher("index.jsp").forward(request, response);
         }
     }
 }

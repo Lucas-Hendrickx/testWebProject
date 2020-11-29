@@ -26,17 +26,9 @@
             <div class="w3-container w3-card-4 w3-light-grey w3-text-blue w3-margin">
 
 
-<!------------- Not Logged In ---------------------------------------------------------------------------------------->
-
-                <c:if test = "${empty role}">
-
-                    <h2>You need to be logged in to see this page!</h2>
-
-                </c:if>
-
 <!------------- Logged In As Guardian -------------------------------------------------------------------------------->
 
-                <c:if test = "${role == 'Guardian'}">
+                <c:if test = "${registered.role == 'GUARDIAN'}">
                     <c:if test = "${empty allUsersWithEmail}">
 
                         <h2>There are no users on this account</h2>
@@ -66,7 +58,7 @@
 
 <!------------- Logged In As Admin ----------------------------------------------------------------------------------->
 
-                <c:if test = "${role == 'Admin'}">
+                <c:if test = "${registered.role == 'ADMIN'}">
                     <c:if test = "${empty allRegistered}">
 
                         <h2>There are no registered persons in the database</h2>

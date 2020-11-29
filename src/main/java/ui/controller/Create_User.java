@@ -1,6 +1,8 @@
 package ui.controller;
 
+import domain.model.Role;
 import domain.model.User;
+import ui.authorization.Utility;
 import ui.controller.RequestHandler;
 
 import javax.servlet.ServletException;
@@ -15,6 +17,9 @@ public class Create_User extends RequestHandler {
 
     @Override
     public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Role[] roles = {Role.GUARDIAN};
+        Utility.checkRole(request, roles);
+
         List<String> result = new ArrayList<String>();
         User user = new User();
 

@@ -1,6 +1,7 @@
 package domain.db;
 
 import domain.model.Registered;
+import domain.model.Role;
 import util.DBConnectionService;
 
 import java.sql.*;
@@ -112,12 +113,13 @@ public class RegisteredDBSQL implements RegisteredDB {
     // Extra
 
     public Registered makeRegistered(ResultSet result) throws SQLException {
-        String firstname = result.getString("firstname");
-        String lastname = result.getString("lastname");
-        String email = result.getString("email");
-        String gsmnumber = result.getString("gsmnumber");
-        String password = result.getString("password");
-        String role = result.getString("role");
-        return new Registered(firstname, lastname, email, gsmnumber, password, role);
+        Registered registered = new Registered();
+        registered.setFirstname(result.getString("firstname"));
+        registered.setLastname(result.getString("lastname"));
+        registered.setEmail(result.getString("email"));
+        registered.setGsmnumber(result.getString("gsmnumber"));
+        registered.setPassword(result.getString("password"));
+        registered.setRole(Role.valueOf(result.getString("role").toUpperCase()));
+        return registered;
     }
 }

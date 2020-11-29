@@ -25,7 +25,7 @@ public class Function_Login extends RequestHandler {
             request.setAttribute("result", result);
             request.getRequestDispatcher("index.jsp").forward(request, response);
         } else {
-            response.sendRedirect("Controller?command=Open_Index");
+            response.sendRedirect("index.jsp");
         }
     }
 
@@ -59,7 +59,7 @@ public class Function_Login extends RequestHandler {
         } else {
             request.getSession().setAttribute("firstname", registered.getFirstname());
             request.getSession().setAttribute("email", registered.getEmail());
-            request.getSession().setAttribute("role", registered.getRole());
+            request.getSession().setAttribute("registered", registered);
             request.setAttribute("nameClass", "has-succes");
         }
     }

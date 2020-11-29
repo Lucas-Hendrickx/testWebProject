@@ -1,8 +1,9 @@
 package ui.controller;
 
 import domain.model.Registered;
+import domain.model.Role;
 import domain.model.User;
-import ui.controller.RequestHandler;
+import ui.authorization.Utility;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -16,30 +17,27 @@ public class Open_Overview extends RequestHandler {
 
     @Override
     public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Role[] roles = {Role.ADMIN, Role.GUARDIAN};
+        Utility.checkRole(request, roles);
+
         HttpSession session = request.getSession();
         List<String> result = new ArrayList<String>();
+        Registered registered = (Registered) session.getAttribute("registered");
 
-        try {
-            String role = (String) session.getAttribute("role");
-
-            // Logged In As Guardian
-            if (role.equals("Guardian")) {
-                List<User> allUsersWithEmail = service.getUsersWithEmail((String) session.getAttribute("email"));
-                request.setAttribute("allUsersWithEmail", allUsersWithEmail);
-            }
-
-            // Logged In As Admin
-            if (role.equals("Admin")) {
-                List<User> allUsers = service.getAllUsers();
-                List<Registered> allRegistered = service.getAllRegistered();
-                request.setAttribute("allUsers", allUsers);
-                request.setAttribute("allRegistered", allRegistered);
-            }
-        } catch (Exception exc){
-            result.add("You need to be logged in to go to the Overview");
-            request.setAttribute("result", result);
-            request.getRequestDispatcher("Controller?command=Open_Index").forward(request, response);
+        // Logged In As Guardian
+        if (registered.getRole().equals(Role.GUARDIAN)) {
+            List<User> allUsersWithEmail = service.getUsersWithEmail((String) session.getAttribute("email"));
+            request.setAttribute("allUsersWithEmail", allUsersWithEmail);
         }
+
+        // Logged In As Admin
+        if (registered.getRole().equals(Role.ADMIN)) {
+            List<User> allUsers = service.getAllUsers();
+            List<Registered> allRegistered = service.getAllRegistered();
+            request.setAttribute("allUsers", allUsers);
+            request.setAttribute("allRegistered", allRegistered);
+        }
+
         request.getRequestDispatcher("overview.jsp").forward(request, response);
     }
 }

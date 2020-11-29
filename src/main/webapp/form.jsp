@@ -43,7 +43,7 @@
 
 <!------------- Not Logged In ---------------------------------------------------------------------------------------->
 
-                <c:if test = "${empty role}">
+                <c:if test = "${empty registered.role}">
 
                     <form method="POST" action="Controller?command=Create_Registered" novalidate="novalidate">
 
@@ -71,7 +71,7 @@
 
 <!------------- Logged In As Guardian -------------------------------------------------------------------------------->
 
-                <c:if test = "${role == 'Guardian'}">
+                <c:if test = "${registered.role == 'GUARDIAN'}">
 
                     <form method="POST" action="Controller?command=Create_User" novalidate="novalidate">
 
@@ -105,7 +105,7 @@
 
 <!------------- Logged In As Admin ----------------------------------------------------------------------------------->
 
-                <c:if test = "${role == 'Admin'}">
+                <c:if test = "${registered.role == 'ADMIN'}">
 
                     <form method="POST" action="Controller?command=Create_Event" novalidate="novalidate">
 

@@ -1,7 +1,9 @@
 package ui.controller;
 
 import domain.model.Event;
+import domain.model.Role;
 import domain.model.User;
+import ui.authorization.Utility;
 import ui.controller.RequestHandler;
 
 import javax.servlet.ServletException;
@@ -16,6 +18,9 @@ public class Remove_Registered extends RequestHandler {
 
     @Override
     public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Role[] roles = {Role.ADMIN};
+        Utility.checkRole(request, roles);
+
         List<String> result = new ArrayList<String>();
         String email = request.getParameter("email");
         HttpSession session = request.getSession();

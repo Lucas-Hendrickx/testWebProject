@@ -34,7 +34,7 @@ public class Create_Registered extends RequestHandler {
                 request.getRequestDispatcher("form.jsp").forward(request, response);
             } else {
                 service.addRegistered(registered);
-                response.sendRedirect("Controller?command=Open_Index");
+                response.sendRedirect("index.jsp");
             }
         }
     }

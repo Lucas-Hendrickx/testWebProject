@@ -1,6 +1,8 @@
 package ui.controller;
 
 import domain.model.Event;
+import domain.model.Role;
+import ui.authorization.Utility;
 import ui.controller.RequestHandler;
 
 import javax.servlet.ServletException;
@@ -14,6 +16,9 @@ public class Remove_Event extends RequestHandler {
 
     @Override
     public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        Role[] roles = {Role.ADMIN};
+        Utility.checkRole(request, roles);
+
         List<String> result = new ArrayList<>();
         String eventId = request.getParameter("eventId");
 

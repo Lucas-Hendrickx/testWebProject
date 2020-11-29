@@ -17,6 +17,8 @@ public class EventTest {
     /**
      * Opmerking:
      *
+     * NOG GEBASEERD OP OUDERE VERSIE VAN CODE
+     *
      * Je kan de tests maar 1 keer uitvoeren, daarna moet je onderstaande commands uitvoeren.
      * Dit moet want anders zit het event al vol.
      * Je moet de tests 1 per 1 uitvoeren van boven naar beneden.

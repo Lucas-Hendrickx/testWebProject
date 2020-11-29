@@ -1,7 +1,9 @@
 package ui.controller;
 
 import domain.model.Event;
+import domain.model.Role;
 import domain.model.User;
+import ui.authorization.Utility;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +17,8 @@ public class Remove_User extends RequestHandler {
 
     @Override
     public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Role[] roles = {Role.ADMIN, Role.GUARDIAN};
+        Utility.checkRole(request, roles);
         List<String> result = new ArrayList<String>();
 
         User user = new User();

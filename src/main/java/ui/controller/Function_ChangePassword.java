@@ -1,6 +1,8 @@
 package ui.controller;
 
 import domain.model.Registered;
+import domain.model.Role;
+import ui.authorization.Utility;
 import ui.controller.RequestHandler;
 
 import javax.servlet.ServletException;
@@ -15,6 +17,9 @@ public class Function_ChangePassword extends RequestHandler {
 
     @Override
     public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Role[] roles = {Role.ADMIN, Role.GUARDIAN};
+        Utility.checkRole(request, roles);
+
         List<String> result = new ArrayList<String>();
         HttpSession session = request.getSession();
 
@@ -26,12 +31,12 @@ public class Function_ChangePassword extends RequestHandler {
 
         if (result.size() > 0) {
             request.setAttribute("result", result);
-            request.getRequestDispatcher("Controller?command=Open_Index").forward(request, response);
+            request.getRequestDispatcher("index.jsp").forward(request, response);
         } else {
             Registered registered = service.getRegistered((String) session.getAttribute("email"));
             registered.setHashedPassword(passwordA);
             service.changeRegisteredPassword(registered.getEmail(), registered.getPassword());
-            response.sendRedirect("Controller?command=Open_Index");
+            response.sendRedirect("index.jsp");
         }
     }
 }

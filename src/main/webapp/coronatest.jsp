@@ -37,17 +37,9 @@
                     </div>
                 </c:if>
 
-<!------------- Not Logged In ---------------------------------------------------------------------------------------->
-
-                <c:if test = "${empty role}">
-
-                    <h2>You need to be logged in to see this page!</h2>
-
-                </c:if>
-
 <!------------- Logged In As Guardian -------------------------------------------------------------------------------->
 
-                <c:if test = "${role == 'Guardian'}">
+                <c:if test = "${registered.role == 'GUARDIAN'}">
 
                     <c:if test = "${empty allCoronaTestsOfRegistered}">
 
@@ -99,7 +91,7 @@
 
 <!------------- Logged In As Admin ----------------------------------------------------------------------------------->
 
-                <c:if test = "${role == 'Admin'}">
+                <c:if test = "${registered.role == 'ADMIN'}">
 
                     <c:if test = "${empty allCoronaTests}">
 

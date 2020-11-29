@@ -41,17 +41,9 @@
                     </div>
                 </c:if>
 
-<!------------- Not Logged In ---------------------------------------------------------------------------------------->
-
-                <c:if test = "${empty role}">
-
-                    <h2>You need to be logged in to see this page!</h2>
-
-                </c:if>
-
 <!------------- Logged In -------------------------------------------------------------------------------------------->
 
-                <c:if test = "${not empty role}">
+                <c:if test = "${not empty registered.role}">
                     <c:if test = "${empty allUsersOfEvent}">
 
                         <h2>There are no users registered at the event</h2>
@@ -75,7 +67,7 @@
                                     <td><c:out value="${user.firstname}"/></td>
                                     <td><c:out value="${user.lastname}"/></td>
                                     <td><c:out value="${user.usergroup}"/></td>
-                                    <c:if test = "${role == 'Admin' || user.registeredEmail == email}">
+                                    <c:if test = "${registered.role == 'ADMIN' || user.registeredEmail == email}">
                                         <td><a href="Controller?command=Function_RemoveUserOfEvent&eventId=<c:out value="${eventId}"/>&registeredEmail=<c:out value="${user.registeredEmail}"/>&firstname=<c:out value="${user.firstname}"/>&lastname=<c:out value="${user.lastname}"/>">Remove</a></td>
                                     </c:if>
                                 </tr>
@@ -87,7 +79,7 @@
 
 <!------------- Logged In As Guardian ----------------------------------------------------------------------------------->
 
-                <c:if test = "${role == 'Guardian'}">
+                <c:if test = "${registered.role == 'GUARDIAN'}">
 
                     <h2>Form for adding a user to the event.</h2>
 

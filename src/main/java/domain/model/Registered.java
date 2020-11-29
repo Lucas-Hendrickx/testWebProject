@@ -8,11 +8,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Registered {
-    private String firstname, lastname, email, gsmnumber, password, role;
+    private String firstname, lastname, email, gsmnumber, password;
+    private Role role;
 
     // Constructors
 
-    public Registered(String firstname, String lastname, String email, String gsmnumber, String password, String role) {
+    public Registered(String firstname, String lastname, String email, String gsmnumber, String password, Role role) {
         setFirstname(firstname);
         setLastname(lastname);
         setEmail(email);
@@ -40,10 +41,7 @@ public class Registered {
         this.lastname = lastname;
     }
 
-    public void setRole(String role) {
-        if(role.isEmpty()){
-            throw new DomainException("No role given.");
-        }
+    public void setRole(Role role) {
         this.role = role;
     }
 
@@ -87,7 +85,7 @@ public class Registered {
         return gsmnumber;
     }
 
-    public String getRole(){
+    public Role getRole(){
         return role;
     }
 

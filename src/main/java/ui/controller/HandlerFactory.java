@@ -12,7 +12,7 @@ public class HandlerFactory {
             handler              = (RequestHandler) handlerObject;
             handler.setModel(service);
         } catch (Exception e) {
-            throw new RuntimeException("Deze pagina bestaat niet!");
+            throw new RuntimeException("This page does not exist!");
         }
         return handler;
     }

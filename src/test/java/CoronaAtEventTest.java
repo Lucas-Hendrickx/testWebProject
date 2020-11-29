@@ -78,8 +78,6 @@ public class CoronaAtEventTest {
         LocalDateTime eventdate = getDate("/html/body/div/div[2]/table/tbody/tr[3]/td[2]", "yyyy-MM-dd HH:mm");
         Boolean safe = getState("/html/body/div/div[2]/table/tbody/tr[3]/td[5]");
 
-        System.out.println(eventdate +" - "+ safe);
-
         // Checking the data:
         Boolean check = true;
         int counter = 0;

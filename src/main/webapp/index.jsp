@@ -39,7 +39,7 @@
 
 <!------------- Not Logged In ---------------------------------------------------------------------------------------->
 
-                <c:if test = "${empty role}">
+                <c:if test = "${empty registered.role}">
 
                     <h2>Welcome to our Chiro Website!</h2>
 
@@ -65,7 +65,7 @@
 
 <!------------- Logged In -------------------------------------------------------------------------------------------->
 
-                <c:if test = "${not empty role}">
+                <c:if test = "${not empty registered.role}">
 
                     <h2>Welcome <c:out value="${firstname}"/></h2>
 

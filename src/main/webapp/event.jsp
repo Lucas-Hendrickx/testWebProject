@@ -51,7 +51,7 @@
                         <tr>
                             <th>Name</th>
                             <th>Date</th>
-                            <c:if test = "${not empty role}">
+                            <c:if test = "${not empty registered.role}">
                                 <th>Duration</th>
                                 <th>Amount Of People Allowed</th>
                                 <th>Corona</th>
@@ -62,7 +62,7 @@
                             <tr>
                                 <td><c:out value="${event.name}"/></td>
                                 <td><c:out value="${event.getStringDate()}"/></td>
-                                <c:if test = "${not empty role}">
+                                <c:if test = "${not empty registered.role}">
                                     <td><c:out value="${event.duration}"/></td>
                                     <td><c:out value="${event.amountOfPeopleAllowed}"/></td>
                                     <c:if test = "${eventidsWithCorona.contains(event.eventId)}">
