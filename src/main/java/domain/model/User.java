@@ -3,8 +3,10 @@ package domain.model;
 public class User {
     private String userId, registeredEmail, firstname, lastname, usergroup;
 
-    // Constructors
 
+    /***
+     * Constructors
+     */
     public User(String userId, String registeredEmail, String firstname, String lastname, String usergroup) {
         setUserId(userId);
         setRegisteredEmail(registeredEmail);
@@ -16,8 +18,10 @@ public class User {
     public User() {
     }
 
-    // Setters
 
+    /***
+     * Setters
+     */
     public void setUserId(String userId) {
         if (userId.isEmpty()) {
             throw new DomainException("No userId given");
@@ -53,8 +57,10 @@ public class User {
         this.usergroup = usergroup;
     }
 
-    // Getters
 
+    /***
+     * Getters
+     */
     public String getUserId() {
         return userId;
     }
@@ -75,8 +81,10 @@ public class User {
         return usergroup;
     }
 
-    // Extra
 
+    /***
+     * Extra
+     */
     @Override
     public String toString(){
         return getFirstname() + " " + getLastname();

@@ -1,3 +1,5 @@
+package myProject;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -14,24 +16,14 @@ public class EventTest {
     private WebDriver driver;
     private String path = "http://localhost:8081/";
 
-    /**
-     * Opmerking:
-     *
-     * NOG GEBASEERD OP OUDERE VERSIE VAN CODE
-     *
-     * Je kan de tests maar 1 keer uitvoeren, daarna moet je onderstaande commands uitvoeren.
-     * Dit moet want anders zit het event al vol.
-     * Je moet de tests 1 per 1 uitvoeren van boven naar beneden.
-     *
-     * Delete From web3_project_r0748690.visit Where userid = 1 and eventid = 1;
-     * Delete From web3_project_r0748690.visit Where userid = 2 and eventid = 1;
-     * Delete From web3_project_r0748690.visit Where userid = 3 and eventid = 1;
-     * Delete From web3_project_r0748690.visit Where userid = 4 and eventid = 1;
+    /*
+        Deze test werkt niet meer door de javascript validatie
      */
+
 
     @Before
     public void setUp() {
-        System.setProperty("webdriver.chrome.driver", "C:\\School\\3de_Semester\\Webontwikkeling-3\\Extra\\Chromedriver\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "C:\\School\\Extra Programma's\\Driver\\chromedriver.exe");
         driver = new ChromeDriver();
         driver.get(path+"/index.jsp");
     }

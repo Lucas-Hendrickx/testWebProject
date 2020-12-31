@@ -41,4 +41,5 @@ public class Open_Contact extends RequestHandler {
         request.getRequestDispatcher("contact.jsp").forward(request, response);
 
     }
+
 }

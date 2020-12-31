@@ -8,28 +8,40 @@
         <link rel="stylesheet" href="extra/style.css">
         <link rel="stylesheet" href="extra/w3.css">
         <script src="extra/script.js"></script>
+        <script src="extra/main.js"></script>
+
     </head>
     <body>
 
 <!----- Navigatie ---------------------------------------------------------------------------------------------------->
 
-        <%--
-                A header from "header.jsp"
-        --%>
+        <nav class="nav-list">
+            <ul class="w3-sidebar w3-bar-block w3-collapse w3-card w3-dark-grey" style="width:200px;" id="mySidebar">
+                <button class="w3-bar-item w3-button w3-large w3-hide-large" onclick="w3_close()">Close &times;</button>
 
-        <jsp:include page="extra/header.jsp"/>
+                <li class="tablinks"><a href="Controller?command=Open_Index">Home</a></li>
+                <li class="tablinks"><a href="Controller?command=Open_Form">Register</a></li>
+
+                <c:if test="${registered.role=='ADMIN' || registered.role=='GUARDIAN'}">
+                    <li class="tablinks"><a href="Controller?command=Open_Overview">Overview</a></li>
+                    <li class="tablinks"><a href="Controller?command=Open_CoronaTest">CoronaTest</a></li>
+                </c:if>
+
+                <li class="tablinks"><a class="active" href="Controller?command=Open_Event">Events</a></li>
+            </ul>
+        </nav>
 
         <div class="w3-main" style="margin-left:200px">
 
 <!--------- Title ---------------------------------------------------------------------------------------------------->
 
             <jsp:include page="extra/title.jsp">
-                <jsp:param name="title" value="Details" />
+                <jsp:param name="title" value="Event Details" />
             </jsp:include>
 
             <div class="w3-container w3-card-4 w3-light-grey w3-text-blue w3-margin">
 
-<!------------- Errors ----------------------------------------------------------------------------------------------->
+<!------------- Errors / Success ------------------------------------------------------------------------------------->
 
                 <c:if test = "${not empty result}">
                     <div class="alert-danger">
@@ -38,6 +50,12 @@
                                 <li><c:out value='${error}'/></li>
                             </c:forEach>
                         </ul>
+                    </div>
+                </c:if>
+
+                <c:if test="${success!=null}">
+                    <div class="alert-feedback">
+                        <p>${success}</p>
                     </div>
                 </c:if>
 
@@ -77,7 +95,7 @@
                     </c:if>
                 </c:if>
 
-<!------------- Logged In As Guardian ----------------------------------------------------------------------------------->
+<!------------- Logged In As Guardian -------------------------------------------------------------------------------->
 
                 <c:if test = "${registered.role == 'GUARDIAN'}">
 
@@ -99,6 +117,17 @@
                     </form>
 
                 </c:if>
+
+<!------------- Logged In As Admin ----------------------------------------------------------------------------------->
+
+                <c:if test = "${registered.role == 'ADMIN'}">
+
+                    <form method="POST" action="Controller?command=Remove_Event&eventId=${eventId}" novalidate="novalidate">
+                        <p><input type="submit" id="removeEvent" value="Remove event"></p>
+                    </form>
+
+                </c:if>
+
 
 <!------------- Footer ----------------------------------------------------------------------------------------------->
 

@@ -8,8 +8,10 @@ public class Event {
     private LocalDateTime date;
     private int duration, amountOfPeopleAllowed;
 
-    // Constructors
 
+    /***
+     * Constructors
+     */
     public Event(String eventId, String name, LocalDateTime date, int duration, int amountOfPeopleAllowed) {
         setEventId(eventId);
         setName(name);
@@ -21,8 +23,10 @@ public class Event {
     public Event() {
     }
 
-    // Setters
 
+    /***
+     * Setters
+     */
     public void setEventId(String eventId) {
         if (eventId.isEmpty()) {
             throw new DomainException("eventId is empty");
@@ -64,8 +68,10 @@ public class Event {
         this.amountOfPeopleAllowed = amountOfPeopleAllowed;
     }
 
-    // Getters
 
+    /***
+     * Getters
+     */
     public String getEventId() {
         return eventId;
     }
@@ -91,8 +97,10 @@ public class Event {
         return amountOfPeopleAllowed;
     }
 
-    // Extra
 
+    /***
+     * Extra
+     */
     @Override
     public String toString() {
         return "Event{" +

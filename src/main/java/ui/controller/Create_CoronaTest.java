@@ -30,12 +30,15 @@ public class Create_CoronaTest extends RequestHandler {
             request.getRequestDispatcher("Controller?command=Open_CoronaTest").forward(request, response);
         } else {
             service.addCoronaTest(coronatest);
-            response.sendRedirect("Controller?command=Open_CoronaTest");
+            request.setAttribute("success", "The Corona test is successfully added.");
+            request.getRequestDispatcher("Controller?command=Open_CoronaTest").forward(request, response);
         }
     }
 
-    // Setters
 
+    /***
+     * Setters
+     */
     private void setuserId(CoronaTest coronatest, HttpServletRequest request, List<String> result) {
         String fullname = request.getParameter("user");
         String[] namesplit = request.getParameter("user").split(" ");
@@ -49,7 +52,6 @@ public class Create_CoronaTest extends RequestHandler {
             request.setAttribute("nameClass", "has-error");
         }
     }
-
 
     private void setDateOfTest(CoronaTest coronatest, HttpServletRequest request, List<String> result) {
         String date = request.getParameter("date");

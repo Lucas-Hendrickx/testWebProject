@@ -7,8 +7,10 @@ public class CoronaTest {
     private String userId;
     private LocalDateTime dateOfTest;
 
-    // Constructors
 
+    /***
+     * Constructors
+     */
     public CoronaTest(String userId, LocalDateTime date) {
         setUserId(userId);
         setDateOfTest(date);
@@ -17,8 +19,10 @@ public class CoronaTest {
     public CoronaTest() {
     }
 
-    // Setters
 
+    /***
+     * Setters
+     */
     public void setUserId(String userId) {
         if (userId.isEmpty()) {
             throw new DomainException("userId is empty");
@@ -40,8 +44,9 @@ public class CoronaTest {
     }
 
 
-    // Getters
-
+    /***
+     * Getters
+     */
     public String getUserId() {
         return userId;
     }
@@ -51,8 +56,9 @@ public class CoronaTest {
     }
 
 
-    // Extra
-
+    /***
+     * Extra
+     */
     @Override
     public String toString() {
         return "Corona{" +

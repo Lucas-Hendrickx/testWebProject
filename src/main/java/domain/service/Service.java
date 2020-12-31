@@ -7,19 +7,22 @@ import domain.model.User;
 import domain.model.Registered;
 import domain.model.Event;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 
 public class Service {
-    private UserDB userDb = new UserDBSQL();
+    private UserDB       userDb       = new UserDBSQL();
     private RegisteredDB registeredDb = new RegisteredDBSQL();
-    private VisitDB visitDb = new VisitDBSQL();
-    private EventDB eventDb = new EventDBSQL();
+    private VisitDB      visitDb      = new VisitDBSQL();
+    private EventDB      eventDb      = new EventDBSQL();
     private CoronaTestDB coronatestDb = new CoronaTestDBSQL();
 
-    // User
 
+    /***
+     * User
+     */
     public void addUser(User user) {
         userDb.addUser(user);
     }
@@ -40,8 +43,10 @@ public class Service {
         return userDb.getUsersWithEmail(email);
     }
 
-    // Registered
 
+    /**
+     * Registered
+     */
     public void addRegistered(Registered registered) {
         registeredDb.addRegistered(registered);
     }
@@ -62,8 +67,10 @@ public class Service {
         registeredDb.changeRegisteredPassword(email, password);
     }
 
-    // Visit
 
+    /***
+     * Visit
+     */
     public List<Event> getAllEventsOfUser(String userId) {
         return visitDb.getAllEventsOfUser(userId);
     }
@@ -80,8 +87,10 @@ public class Service {
         visitDb.removeUserFromEvent(userId, eventId);
     }
 
-    // Event
 
+    /***
+     * Event
+     */
     public void addEvent(Event event) {
         eventDb.addEvent(event);
     }
@@ -102,8 +111,10 @@ public class Service {
         return eventDb.getEventsWithCoronaPresent();
     }
 
-    // CoronaTest
 
+    /***
+     * CoronaTest
+     */
     public void addCoronaTest(CoronaTest coronatest) {
         coronatestDb.addCoronaTest(coronatest);
     }
@@ -118,5 +129,17 @@ public class Service {
 
     public HashMap<User, Registered> searchContactsOfUser(String userid, LocalDateTime dateoftest, int daysaftertest) {
         return coronatestDb.searchContactsOfUser(userid, dateoftest, daysaftertest);
+    }
+
+    public HashMap<String, User> getAllCoronaTestsOfRegisteredBetweenDates(String email, Timestamp fromDate, Timestamp untilDate) {
+        return coronatestDb.getAllCoronaTestsOfRegisteredBetweenDates(email, fromDate, untilDate);
+    }
+
+    public HashMap<String, User> getAllCoronaTestsBetweenDates(Timestamp fromDate, Timestamp untilDate) {
+        return coronatestDb.getAllCoronaTestsBetweenDates(fromDate, untilDate);
+    }
+
+    public void removeCoronaTestsOfUser(String userid) {
+        coronatestDb.removeCoronaTestsOfUser(userid);
     }
 }

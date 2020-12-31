@@ -1,3 +1,5 @@
+package myProject;
+
 import static org.junit.Assert.*;
 
 import org.junit.*;
@@ -13,7 +15,7 @@ public class SeleniumWorksWellTest {
 
     @Before
     public void setUp() throws Exception {
-        System.setProperty("webdriver.chrome.driver", "C:\\School\\3de_Semester\\Webontwikkeling-3\\Extra\\Chromedriver\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "C:\\School\\Extra Programma's\\Driver\\chromedriver.exe");
         driver = new ChromeDriver();
         driver.get("https://nl.wikipedia.org/wiki/Hoofdpagina");
     }

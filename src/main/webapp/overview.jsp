@@ -13,7 +13,21 @@
 
 <!----- Navigatie ---------------------------------------------------------------------------------------------------->
 
-        <jsp:include page="extra/header.jsp"/>
+        <nav class="nav-list">
+            <ul class="w3-sidebar w3-bar-block w3-collapse w3-card w3-dark-grey" style="width:200px;" id="mySidebar">
+                <button class="w3-bar-item w3-button w3-large w3-hide-large" onclick="w3_close()">Close &times;</button>
+
+                <li class="tablinks"><a href="Controller?command=Open_Index">Home</a></li>
+                <li class="tablinks"><a href="Controller?command=Open_Form">Register</a></li>
+
+                <c:if test="${registered.role=='ADMIN' || registered.role=='GUARDIAN'}">
+                    <li class="tablinks"><a class="active" href="Controller?command=Open_Overview">Overview</a></li>
+                    <li class="tablinks"><a href="Controller?command=Open_CoronaTest">CoronaTest</a></li>
+                </c:if>
+
+                <li class="tablinks"><a href="Controller?command=Open_Event">Events</a></li>
+            </ul>
+        </nav>
 
         <div class="w3-main" style="margin-left:200px">
 
@@ -25,6 +39,13 @@
 
             <div class="w3-container w3-card-4 w3-light-grey w3-text-blue w3-margin">
 
+<!------------- Success ---------------------------------------------------------------------------------------------->
+
+                <c:if test="${success!=null}">
+                    <div class="alert-feedback">
+                        <p>${success}</p>
+                    </div>
+                </c:if>
 
 <!------------- Logged In As Guardian -------------------------------------------------------------------------------->
 

@@ -51,7 +51,9 @@ public class Function_AddUserToEvent extends RequestHandler {
                 }
             }
             service.addUserToEvent(user.getUserId(), eventId);
-            response.sendRedirect("Controller?command=Open_Details&eventId=" + eventId);
+            request.setAttribute("success", "The user is successfully added to the event.");
+            request.getRequestDispatcher("Controller?command=Open_Details&eventId=" + eventId).forward(request, response);
         }
     }
+
 }

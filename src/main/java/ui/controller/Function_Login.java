@@ -23,12 +23,15 @@ public class Function_Login extends RequestHandler {
 
         if (result.size() > 0)  {
             request.setAttribute("result", result);
-            request.getRequestDispatcher("index.jsp").forward(request, response);
         } else {
-            response.sendRedirect("index.jsp");
+            request.setAttribute("success", "You are successfully logged in.");
         }
+        request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 
+    /***
+     * Functions
+     */
     private Registered getRegistered(HttpServletRequest request, List<String> result) {
         String email = request.getParameter("email");
         request.setAttribute("emailReturn", email);
@@ -63,4 +66,5 @@ public class Function_Login extends RequestHandler {
             request.setAttribute("nameClass", "has-succes");
         }
     }
+
 }

@@ -36,11 +36,14 @@ public class Open_CoronaTest extends RequestHandler {
 
         // Logged In As Admin
         if (registered.getRole().equals(Role.ADMIN)) {
+            List<Registered> allRegistered = service.getAllRegistered();
             HashMap<String, User> allCoronaTests = service.getAllCoronaTests();
+            request.setAttribute("allRegistered", allRegistered);
             request.setAttribute("allCoronaTests", allCoronaTests);
         }
 
         request.getRequestDispatcher("coronatest.jsp").forward(request, response);
 
     }
+
 }

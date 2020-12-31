@@ -46,4 +46,5 @@ public class Open_Details extends RequestHandler {
         request.getRequestDispatcher("details.jsp").forward(request, response);
 
     }
+
 }

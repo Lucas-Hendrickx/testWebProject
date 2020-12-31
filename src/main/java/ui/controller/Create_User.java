@@ -39,13 +39,16 @@ public class Create_User extends RequestHandler {
                 request.getRequestDispatcher("form.jsp").forward(request, response);
             } else {
                 service.addUser(user);
-                response.sendRedirect("Controller?command=Open_Overview");
+                request.setAttribute("success", "The user is successfully created.");
+                request.getRequestDispatcher("Controller?command=Open_Overview").forward(request, response);
             }
         }
     }
 
-    // Setters
 
+    /***
+     * Setters
+     */
     private void setRegisteredEmail(User user, HttpServletRequest request, List<String> result) {
         HttpSession session = request.getSession();
         String registeredEmail = (String) session.getAttribute("email");
@@ -93,4 +96,5 @@ public class Create_User extends RequestHandler {
             request.setAttribute("nameClass", "has-error");
         }
     }
+
 }

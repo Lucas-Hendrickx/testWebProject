@@ -3,8 +3,10 @@ package domain.model;
 public class Visit {
     private String eventId, userId;
 
-    // Constructors
 
+    /***
+     * Constructors
+     */
     public Visit(String eventId, String userId) {
         setEventId(eventId);
         setUserId(userId);
@@ -13,8 +15,10 @@ public class Visit {
     public Visit() {
     }
 
-    // Setters
 
+    /***
+     * Setters
+     */
     public void setEventId(String eventId) {
         if (eventId.isEmpty()) {
             throw new DomainException("eventId is empty");
@@ -30,8 +34,9 @@ public class Visit {
     }
 
 
-    // Getters
-
+    /***
+     * Getters
+     */
     public String getEventId() {
         return eventId;
     }

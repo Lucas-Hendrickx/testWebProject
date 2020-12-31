@@ -11,15 +11,19 @@ public class UserDBSQL implements UserDB {
     private Connection connection;
     private String schema;
 
-    // Constructor
 
+    /***
+     * Constructor
+     */
     public UserDBSQL() {
         this.connection = DBConnectionService.getDbConnection();
         this.schema = DBConnectionService.getSchema();
     }
 
-    // Functions
 
+    /***
+     * Functions
+     */
     @Override
     public void addUser(User user) {
         if (user == null) {
@@ -112,8 +116,10 @@ public class UserDBSQL implements UserDB {
         return users;
     }
 
-    // Extra
 
+    /***
+     * Extra
+     */
     public User makeUser(ResultSet result) throws SQLException {
         String userId = result.getString("userId");
         String registeredEmail = result.getString("registeredEmail");

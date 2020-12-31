@@ -36,7 +36,9 @@ public class Function_ChangePassword extends RequestHandler {
             Registered registered = service.getRegistered((String) session.getAttribute("email"));
             registered.setHashedPassword(passwordA);
             service.changeRegisteredPassword(registered.getEmail(), registered.getPassword());
-            response.sendRedirect("index.jsp");
+            request.setAttribute("success", "The password is successfully changed.");
+            request.getRequestDispatcher("index.jsp").forward(request, response);
         }
     }
+
 }

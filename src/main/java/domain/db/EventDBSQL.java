@@ -1,27 +1,31 @@
 package domain.db;
 
 import domain.model.Event;
+import domain.service.Service;
 import util.DBConnectionService;
 
 import java.sql.*;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 public class EventDBSQL implements EventDB{
     private Connection connection;
     private String schema;
+    private Service service = new Service();
 
-    // Constructor
 
+    /***
+     * Constructor
+     */
     public EventDBSQL() {
         this.connection = DBConnectionService.getDbConnection();
         this.schema = DBConnectionService.getSchema();
     }
 
-    // Functions
 
+    /***
+     * Functions
+     */
     @Override
     public void addEvent(Event event) {
         if (event == null) {
@@ -111,8 +115,9 @@ public class EventDBSQL implements EventDB{
     }
 
 
-    // Extra
-
+    /***
+     * Extra
+     */
     public Event makeEvent(ResultSet result) throws SQLException {
         Event event = new Event();
         event.setEventId(result.getString("eventId"));

@@ -15,15 +15,19 @@ public class VisitDBSQL implements VisitDB{
     private Connection connection;
     private String schema;
 
-    // Constructor
 
+    /***
+     * Constructor
+     */
     public VisitDBSQL() {
         this.connection = DBConnectionService.getDbConnection();
         this.schema = DBConnectionService.getSchema();
     }
 
-    // Functions
 
+    /***
+     * Functions
+     */
     @Override
     public List<Event> getAllEventsOfUser(String userId) {
         if (userId == null) {
@@ -98,8 +102,10 @@ public class VisitDBSQL implements VisitDB{
         }
     }
 
-    // Extra
 
+    /***
+     * Extra
+     */
     public Event makeEvent(ResultSet result) throws SQLException {
         Event event = new Event();
         event.setEventId(result.getString("eventId"));

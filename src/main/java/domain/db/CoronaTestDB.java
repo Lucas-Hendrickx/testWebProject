@@ -4,6 +4,7 @@ import domain.model.CoronaTest;
 import domain.model.Registered;
 import domain.model.User;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
@@ -45,4 +46,10 @@ public interface CoronaTestDB {
      * @throws DbException if the given daysaftertest isn't positive
      */
     HashMap<User, Registered> searchContactsOfUser(String userid, LocalDateTime dateoftest, int daysaftertest);
+
+    HashMap<String, User> getAllCoronaTestsBetweenDates(Timestamp fromDate, Timestamp untilDate);
+
+    HashMap<String, User> getAllCoronaTestsOfRegisteredBetweenDates(String email, Timestamp fromDate, Timestamp untilDate);
+
+    void removeCoronaTestsOfUser(String userid);
 }

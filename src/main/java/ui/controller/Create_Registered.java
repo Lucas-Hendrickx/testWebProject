@@ -34,13 +34,16 @@ public class Create_Registered extends RequestHandler {
                 request.getRequestDispatcher("form.jsp").forward(request, response);
             } else {
                 service.addRegistered(registered);
-                response.sendRedirect("index.jsp");
+                request.setAttribute("success", "The account is successfully created.");
+                request.getRequestDispatcher("index.jsp").forward(request, response);
             }
         }
     }
 
-    // Setters
 
+    /***
+     * Setters
+     */
     private void setEmail(Registered registered, HttpServletRequest request, List<String> result) {
         String email = request.getParameter("email");
         request.setAttribute("emailReturn", email);
@@ -99,4 +102,5 @@ public class Create_Registered extends RequestHandler {
             request.setAttribute("nameClass", "has-error");
         }
     }
+
 }

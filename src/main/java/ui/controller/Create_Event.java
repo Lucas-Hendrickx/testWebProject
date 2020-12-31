@@ -34,12 +34,15 @@ public class Create_Event extends RequestHandler {
             request.getRequestDispatcher("form.jsp").forward(request, response);
         } else {
             service.addEvent(event);
-            response.sendRedirect("Controller?command=Open_Index");
+            request.setAttribute("success", "The event is successfully added.");
+            request.getRequestDispatcher("Controller?command=Open_Event").forward(request, response);
         }
     }
 
-    // Setters
 
+    /***
+     * Setters
+     */
     private void setName(Event event, HttpServletRequest request, List<String> result) {
         String name = request.getParameter("name");
         request.setAttribute("nameReturn", name);

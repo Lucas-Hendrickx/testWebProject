@@ -11,8 +11,10 @@ public class Registered {
     private String firstname, lastname, email, gsmnumber, password;
     private Role role;
 
-    // Constructors
 
+    /***
+     * Constructors
+     */
     public Registered(String firstname, String lastname, String email, String gsmnumber, String password, Role role) {
         setFirstname(firstname);
         setLastname(lastname);
@@ -25,8 +27,10 @@ public class Registered {
     public Registered() {
     }
 
-    // Setters
 
+    /***
+     * Setters
+     */
     public void setFirstname(String firstname) {
         if(firstname.isEmpty()){
             throw new DomainException("No firstname given");
@@ -67,8 +71,10 @@ public class Registered {
         this.gsmnumber = gsmnumber;
     }
 
-    // Getters
 
+    /***
+     * Getters
+     */
     public String getFirstname() {
         return firstname;
     }
@@ -89,8 +95,10 @@ public class Registered {
         return role;
     }
 
-    // Password Hashing
 
+    /***
+     * Password
+     */
     public String getPassword() {
         return password;
     }
@@ -130,8 +138,10 @@ public class Registered {
         return getPassword().equals(hashPassword(password));
     }
 
-    // Extra
 
+    /***
+     * Extra
+     */
     @Override
     public String toString(){
         return getFirstname() + " " + getLastname() + ": " + getEmail();

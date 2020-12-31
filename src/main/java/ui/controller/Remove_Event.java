@@ -2,6 +2,7 @@ package ui.controller;
 
 import domain.model.Event;
 import domain.model.Role;
+import domain.model.User;
 import ui.authorization.Utility;
 import ui.controller.RequestHandler;
 
@@ -22,14 +23,23 @@ public class Remove_Event extends RequestHandler {
         List<String> result = new ArrayList<>();
         String eventId = request.getParameter("eventId");
 
+        removeUsersFromEvent(eventId);
         Event event = service.getEvent(eventId);
         if (event.getEventId() == null) {
             result.add("Event not in system");
             request.setAttribute("result", result);
-            request.getRequestDispatcher("Controller?command=Open_Overview").forward(request, response);
+            request.getRequestDispatcher("Controller?command=Open_Event").forward(request, response);
         } else {
             service.removeEvent(eventId);
-            response.sendRedirect("Controller?command=Open_Overview");
+            request.setAttribute("success", "You successfully removed the event.");
+            request.getRequestDispatcher("Controller?command=Open_Event").forward(request, response);
+        }
+    }
+
+    private void removeUsersFromEvent(String eventId) {
+        List<User> users = service.getAllUsersOfEvent(eventId);
+        for (User user : users) {
+            service.removeUserFromEvent(user.getUserId(), eventId);
         }
     }
 }

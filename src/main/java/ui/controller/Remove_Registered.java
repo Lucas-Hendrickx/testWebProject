@@ -4,7 +4,6 @@ import domain.model.Event;
 import domain.model.Role;
 import domain.model.User;
 import ui.authorization.Utility;
-import ui.controller.RequestHandler;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -37,20 +36,32 @@ public class Remove_Registered extends RequestHandler {
             request.setAttribute("result", result);
             request.getRequestDispatcher("Controller?command=Open_Overview").forward(request, response);
         } else {
-            response.sendRedirect(removeRegisteredAndHisUsers(email));
+            removeRegisteredAndHisUsers(email, request, response);
         }
     }
 
-    private String removeRegisteredAndHisUsers(String email) {
+    private void removeRegisteredAndHisUsers(String email, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<User> users = service.getUsersWithEmail(email);
         for (User user : users) {
-            List<Event> allVisitsOfUser = service.getAllEventsOfUser(user.getUserId());
-            for (Event event : allVisitsOfUser) {
-                service.removeUserFromEvent(user.getUserId(), event.getEventId());
-            }
+            removeUserFromTheEvent(user);
+            service.removeCoronaTestsOfUser(user.getUserId());
             service.removeUser(user.getUserId());
         }
         service.removeRegistered(email);
-        return "Controller?command=Open_Overview";
+
+        request.setAttribute("success", "You successfully removed the guardian.");
+        request.getRequestDispatcher("Controller?command=Open_Overview").forward(request, response);
     }
+
+
+    /***
+     * Functions
+     */
+    private void removeUserFromTheEvent(User user) {
+        List<Event> allVisitsOfUser = service.getAllEventsOfUser(user.getUserId());
+        for (Event event : allVisitsOfUser) {
+            service.removeUserFromEvent(user.getUserId(), event.getEventId());
+        }
+    }
+
 }

@@ -28,7 +28,7 @@ public class Remove_User extends RequestHandler {
 
         if (result.size() > 0) {
             request.setAttribute("result", result);
-            request.getRequestDispatcher("Controller?command=Open_Overiew").forward(request, response);
+            request.getRequestDispatcher("Controller?command=Open_Overview").forward(request, response);
         }
 
         User searchUser = service.getUser(user.getRegisteredEmail(), user.getFirstname(), user.getLastname());
@@ -39,14 +39,16 @@ public class Remove_User extends RequestHandler {
             for (Event event : allVisitsOfUser) {
                 service.removeUserFromEvent(searchUser.getUserId(), event.getEventId());
             }
+            service.removeCoronaTestsOfUser(searchUser.getUserId());
         }
 
         if (result.size() > 0) {
             request.setAttribute("result", result);
-            request.getRequestDispatcher("Controller?command=Open_Overiew").forward(request, response);
+            request.getRequestDispatcher("Controller?command=Open_Overview").forward(request, response);
         } else {
             service.removeUser(searchUser.getUserId());
-            response.sendRedirect("Controller?command=Open_Overview");
+            request.setAttribute("success", "You successfully removed the user.");
+            request.getRequestDispatcher("Controller?command=Open_Overview").forward(request, response);
         }
     }
 
@@ -89,5 +91,6 @@ public class Remove_User extends RequestHandler {
             request.setAttribute("nameClass", "has-error");
         }
     }
+
 }
 

@@ -12,15 +12,19 @@ public class RegisteredDBSQL implements RegisteredDB {
     private Connection connection;
     private String schema;
 
-    // Constructor
 
+    /***
+     * Constructor
+     */
     public RegisteredDBSQL() {
         this.connection = DBConnectionService.getDbConnection();
         this.schema = DBConnectionService.getSchema();
     }
 
-    // Functions
 
+    /***
+     * Functions
+     */
     @Override
     public void addRegistered(Registered registered) {
         if (registered == null) {
@@ -110,8 +114,10 @@ public class RegisteredDBSQL implements RegisteredDB {
         }
     }
 
-    // Extra
 
+    /***
+     * Extra
+     */
     public Registered makeRegistered(ResultSet result) throws SQLException {
         Registered registered = new Registered();
         registered.setFirstname(result.getString("firstname"));

@@ -5,29 +5,28 @@ import domain.model.Registered;
 import domain.model.User;
 import util.DBConnectionService;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class CoronaTestDBSQL implements CoronaTestDB{
     private Connection connection;
     private String schema;
 
-    // Constructor
 
+    /***
+     * Constructor
+     */
     public CoronaTestDBSQL() {
         this.connection = DBConnectionService.getDbConnection();
         this.schema = DBConnectionService.getSchema();
     }
 
-    // Functions
 
+    /***
+     * Functions
+     */
     @Override
     public void addCoronaTest(CoronaTest coronatest) {
         if (coronatest == null) {
@@ -85,7 +84,6 @@ public class CoronaTestDBSQL implements CoronaTestDB{
         return data;
     }
 
-
     @Override
     public HashMap<User, Registered> searchContactsOfUser(String userid, LocalDateTime dateoftest, int daysaftertest) {
         HashMap<User, Registered> data = new HashMap<>();
@@ -119,9 +117,66 @@ public class CoronaTestDBSQL implements CoronaTestDB{
         return data;
     }
 
+    @Override
+    public HashMap<String, User> getAllCoronaTestsBetweenDates(Timestamp fromDate, Timestamp untilDate) {
+        HashMap<String, User> data = new HashMap<>();
+        String location = String.format("%s", this.schema);
+        String sql = String.format("Select * From "+location+".coronatest c Inner Join "+location+".user u " +
+                "using(userid) Where dateoftest between ? and ? Order By dateoftest desc", this.schema);
+        try {
+            PreparedStatement statementSQL = connection.prepareStatement(sql);
+            statementSQL.setTimestamp(1, fromDate);
+            statementSQL.setTimestamp(2, untilDate);
+            ResultSet result =  statementSQL.executeQuery();
+            while (result.next()) {
+                data.put(result.getString("dateoftest"), makeUser(result));
+            }
+        } catch (SQLException e) {
+            throw new DbException(e);
+        }
+        return data;
+    }
 
-    // Extra
+    @Override
+    public HashMap<String, User> getAllCoronaTestsOfRegisteredBetweenDates(String email, Timestamp fromDate, Timestamp untilDate) {
+        HashMap<String, User> data = new HashMap<>();
+        String location = String.format("%s", this.schema);
+        String sql = String.format("Select * From "+location+".coronatest c Inner Join "+location+".user u " +
+                "using(userid) Where registeredemail = ? and dateoftest between ? and ? Order By dateoftest", this.schema);
+        try {
+            PreparedStatement statementSQL = connection.prepareStatement(sql);
+            statementSQL.setString(1, email);
+            statementSQL.setTimestamp(2, fromDate);
+            statementSQL.setTimestamp(3, untilDate);
+            System.out.println(statementSQL);
+            ResultSet result =  statementSQL.executeQuery();
+            while (result.next()) {
+                data.put(result.getString("dateoftest"), makeUser(result));
+            }
+        } catch (SQLException e) {
+            throw new DbException(e);
+        }
+        return data;
+    }
 
+    @Override
+    public void removeCoronaTestsOfUser(String userid) {
+        if (userid == null) {
+            throw new DbException("No userid given");
+        }
+        String sql = String.format("Delete From %s.coronatest Where userid = ?", this.schema);
+        try {
+            PreparedStatement statementSQL = connection.prepareStatement(sql);
+            statementSQL.setInt(1, Integer.parseInt(userid));
+            statementSQL.execute();
+        } catch (SQLException e) {
+            throw new DbException(e);
+        }
+    }
+
+    /***
+     * Extra
+     */
     public User makeUser(ResultSet result) throws SQLException {
         User user = new User();
         user.setUserId(result.getString("userid"));

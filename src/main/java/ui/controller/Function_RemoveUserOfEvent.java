@@ -18,6 +18,8 @@ public class Function_RemoveUserOfEvent extends RequestHandler {
         User user = service.getUser(request.getParameter("registeredEmail"), request.getParameter("firstname"), request.getParameter("lastname"));
         String eventId = request.getParameter("eventId");
         service.removeUserFromEvent(user.getUserId(), eventId);
+        request.setAttribute("success", "You successfully removed the user form the event.");
         response.sendRedirect("Controller?command=Open_Details&eventId=" + eventId);
     }
+
 }
